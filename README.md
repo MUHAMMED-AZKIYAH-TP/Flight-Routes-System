@@ -227,7 +227,7 @@ python manage.py shell
 
 ## Key Algorithms
 
-### Find Nth Node (BFS)
+### Find Nth Node 
 Located in `routes/services.py`:
 - Uses Breadth-First Search to traverse the airport network tree
 - Starts from a root airport and finds the node at level n
