@@ -1,0 +1,12 @@
+{% extends "base/base.html" %}
+{% block content %}
+<h2>Shortest Route</h2>
+
+{% if route %}
+<p>Airport: {{ route.airport.code }}</p>
+<p>Duration: {{ route.duration_min }} min</p>
+{% else %}
+<p>No data</p>
+{% endif %}
+{% endblock %}
+

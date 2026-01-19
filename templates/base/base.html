@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Flight Routes</title>
+</head>
+<body>
+    <nav>
+        <a href="{% url 'add-route' %}">Add Route</a> |
+        <a href="{% url 'nth-node' %}">Nth Node</a> |
+        <a href="{% url 'longest' %}">Longest</a> |
+        <a href="{% url 'shortest' %}">Shortest</a>
+    </nav>
+    <hr>
+    {% block content %}
+    {% endblock %}
+</body>
+</html>

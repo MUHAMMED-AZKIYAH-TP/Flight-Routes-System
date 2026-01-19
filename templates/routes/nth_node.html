@@ -1,0 +1,16 @@
+{% extends "base/base.html" %}
+{% block content %}
+<h2>Find Nth Left / Right Node</h2>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Search</button>
+</form>
+
+{% if result %}
+    <h3>Result: {{ result.code }}</h3>
+{% elif request.method == "POST" %}
+    <p>No node found</p>
+{% endif %}
+{% endblock %}
