@@ -183,7 +183,7 @@ Currently uses SQLite (`db.sqlite3`) for development. The project is configured 
 ### Creating .env File
 
 ```bash
-# Create .env in project root
+
 echo DEBUG=True >> .env
 echo SECRET_KEY=your-random-secret-key >> .env
 ```
@@ -233,6 +233,53 @@ Located in `routes/services.py`:
 - Starts from a root airport and finds the node at level n
 - Supports both left and right direction navigation
 - Returns the airport at the specified level or None if not found
+
+## Testing & Verification
+
+### Data Setup 
+
+- **Airports Added**: Successfully added via Django Admin panel
+- **Airport Routes Added**: Successfully configured via Django Admin panel
+- **Route Relationships**: Left/Right child airports configured correctly
+- **Data Persistence**: All data persistently stored in PostgreSQL database
+
+### Functional Testing 
+
+#### Nth Left/Right Node Feature
+- **URL**: `/nth/`
+- **Status**:  Fully Functional
+- **Test Results**:
+  - Search form works correctly
+  - Returns correct node based on specified direction (left/right)
+  - Accurately finds nodes at specified levels in the tree structure
+
+#### Longest Route by Duration
+- **URL**: `/longest/`
+- **Status**:  Fully Functional
+- **Test Results**:
+  - Correctly displays the airport route with maximum duration
+  - Accurate duration calculation and comparison
+
+#### Shortest Route by Duration
+- **URL**: `/shortest/`
+- **Status**:  Fully Functional
+- **Test Results**:
+  - Correctly displays the airport route with minimum duration
+  - Accurate duration calculation and comparison
+
+### Database Verification 
+
+#### PostgreSQL Integration
+- **Status**:  Fully Operational
+- **Verification Methods**:
+  - All airport and route data verified through **pgAdmin**
+  - Data integrity confirmed through **Django Admin panel**
+  - Persistent storage validated across application restarts
+
+#### Data Integrity
+- Airport codes unique and properly indexed
+- Route relationships (left/right) correctly established
+- Distance and duration values accurately stored and retrieved
 
 ## Troubleshooting
 

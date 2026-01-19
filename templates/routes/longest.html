@@ -1,12 +1,38 @@
 {% extends "base/base.html" %}
+{% block title %}Longest Route - Flight Routes System{% endblock %}
 {% block content %}
-<h2>Longest Route</h2>
+<h2>⏱️ Longest Route</h2>
 
 {% if route %}
-<p>Airport: {{ route.airport.code }}</p>
-<p>Duration: {{ route.duration_min }} min</p>
+    <div class="result-box">
+        <h3>📋 Longest Route Details</h3>
+        <div class="result-item">
+            <span class="result-label">Airport Code:</span>
+            <span class="result-value">{{ route.airport.code }}</span>
+        </div>
+        <div class="result-item">
+            <span class="result-label">Duration:</span>
+            <span class="result-value">{{ route.duration_min }} minutes</span>
+        </div>
+        <div class="result-item">
+            <span class="result-label">Distance:</span>
+            <span class="result-value">{{ route.distance_km }} km</span>
+        </div>
+        {% if route.left %}
+        <div class="result-item">
+            <span class="result-label">Left Node:</span>
+            <span class="result-value">{{ route.left.code }}</span>
+        </div>
+        {% endif %}
+        {% if route.right %}
+        <div class="result-item">
+            <span class="result-label">Right Node:</span>
+            <span class="result-value">{{ route.right.code }}</span>
+        </div>
+        {% endif %}
+    </div>
 {% else %}
-<p>No data</p>
+    <div class="no-data">🗂️ No route data available</div>
 {% endif %}
 {% endblock %}
 

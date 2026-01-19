@@ -1,16 +1,23 @@
 {% extends "base/base.html" %}
+{% block title %}Find Nth Node - Flight Routes System{% endblock %}
 {% block content %}
-<h2>Find Nth Left / Right Node</h2>
+<h2>🔍 Find Nth Left / Right Node</h2>
 
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Search</button>
+    <button type="submit">🔎 Search Node</button>
 </form>
 
 {% if result %}
-    <h3>Result: {{ result.code }}</h3>
+    <div class="result-box">
+        <h3>✅ Result Found</h3>
+        <div class="result-item">
+            <span class="result-label">Airport Code:</span>
+            <span class="result-value">{{ result.code }}</span>
+        </div>
+    </div>
 {% elif request.method == "POST" %}
-    <p>No node found</p>
+    <div class="no-data">❌ No node found at this level and direction</div>
 {% endif %}
 {% endblock %}

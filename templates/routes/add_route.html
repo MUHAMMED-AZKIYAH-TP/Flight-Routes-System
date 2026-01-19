@@ -1,10 +1,11 @@
 {% extends "base/base.html" %}
+{% block title %}Add Airport Route - Flight Routes System{% endblock %}
 {% block content %}
-<h2>Add Airport Route</h2>
+<h2>✈️ Add Airport Route</h2>
 
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Save</button>
+    <button type="submit">💾 Save Route</button>
 </form>
 {% endblock %}
