@@ -48,9 +48,7 @@ def longest_route(request):
     )
 
 
-# def shortest_route(request):
-#     route = AirportRoute.objects.order_by("duration_min").first()
-#     return render(request, "routes/shortest.html", {"route": route})
+
 
 
 def shortest_route(request):
