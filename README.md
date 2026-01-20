@@ -6,8 +6,8 @@ A Django-based web application for managing airport flight routes with advanced 
 
 - **Add Routes**: Create new flight routes between airports with distance and duration information
 - **Find Nth Node**: Navigate through the airport network tree structure and find airports at specific levels (left or right direction)
-- **Longest Route**: Identify the flight route with the maximum duration
-- **Shortest Route**: Identify the flight route with the minimum duration
+- **Longest Path From Airport**: Find the longest path traversal from a selected airport by calculating total duration
+- **Shortest Path From Airport**: Find the shortest path traversal from a selected airport by calculating total duration
 - **Airport Management**: Manage a network of airports with binary tree-based relationships
 
 ## Project Structure
@@ -68,7 +68,9 @@ Noviindus_Technology/
 
 1. **Route Addition**: Add new airports and their routes with left/right child relationships
 2. **Tree Traversal**: Use BFS (Breadth-First Search) to find the nth-level node in either direction
-3. **Route Analytics**: Query for longest/shortest routes in the network
+3. **Path Analysis**: 
+   - **Longest Path**: Uses DFS to find the node with maximum total duration from selected airport
+   - **Shortest Path**: Uses Dijkstra's algorithm to find the node with minimum total duration from selected airport
 
 ## Installation
 
@@ -132,8 +134,8 @@ Noviindus_Technology/
 
 - **Main Page (Add Route)**: `http://127.0.0.1:8000/`
 - **Find Nth Node**: `http://127.0.0.1:8000/nth/`
-- **Longest Route**: `http://127.0.0.1:8000/longest/`
-- **Shortest Route**: `http://127.0.0.1:8000/shortest/`
+- **Find Longest Path From Airport**: `http://127.0.0.1:8000/longest/`
+- **Find Shortest Path From Airport**: `http://127.0.0.1:8000/shortest/`
 - **Admin Panel**: `http://127.0.0.1:8000/admin/`
 
 ### API Endpoints
@@ -142,8 +144,8 @@ Noviindus_Technology/
 |----------|--------|-------------|
 | `/` | GET/POST | Add new flight route |
 | `/nth/` | GET/POST | Find nth node in tree from root |
-| `/longest/` | GET | Display longest flight route |
-| `/shortest/` | GET | Display shortest flight route |
+| `/longest/` | GET/POST | Find longest path from selected airport |
+| `/shortest/` | GET/POST | Find shortest path from selected airport |
 
 ## Dependencies
 
@@ -227,12 +229,26 @@ python manage.py shell
 
 ## Key Algorithms
 
-### Find Nth Node 
+### Find Nth Node
 Located in `routes/services.py`:
-- Uses Breadth-First Search to traverse the airport network tree
+- Uses Breadth-First Search (BFS) to traverse the airport network tree
 - Starts from a root airport and finds the node at level n
 - Supports both left and right direction navigation
 - Returns the airport at the specified level or None if not found
+
+### Find Longest Path
+Located in `routes/services.py` - `find_longest_path()`:
+- Uses Depth-First Search (DFS) with backtracking
+- Traverses both forward (child nodes) and backward (parent nodes) paths
+- Calculates cumulative duration for each path
+- Returns the node with maximum total duration and its duration value
+
+### Find Shortest Path
+Located in `routes/services.py` - `find_shortest_path_from_airport()`:
+- Uses Dijkstra's Algorithm with min-heap priority queue
+- Explores both forward (child nodes) and backward (parent nodes) connections
+- Calculates shortest cumulative duration to each reachable node
+- Returns the node with minimum total duration (excluding root) and its duration value
 
 ## Testing & Verification
 
@@ -253,19 +269,25 @@ Located in `routes/services.py`:
   - Returns correct node based on specified direction (left/right)
   - Accurately finds nodes at specified levels in the tree structure
 
-#### Longest Route by Duration
+#### Longest Path From Airport
 - **URL**: `/longest/`
+- **Method**: GET/POST with airport selection form
 - **Status**:  Fully Functional
 - **Test Results**:
-  - Correctly displays the airport route with maximum duration
-  - Accurate duration calculation and comparison
+  - Airport selection form works correctly
+  - Calculates longest path from selected airport using DFS
+  - Returns the node with maximum total duration
+  - Displays Longest Node code and Total Duration in minutes
 
-#### Shortest Route by Duration
+#### Shortest Path From Airport
 - **URL**: `/shortest/`
-- **Status**:  Fully Functional
+- **Method**: GET/POST with airport selection form
+- **Status**: ✅ Fully Functional
 - **Test Results**:
-  - Correctly displays the airport route with minimum duration
-  - Accurate duration calculation and comparison
+  - Airport selection form works correctly
+  - Calculates shortest path from selected airport using Dijkstra's algorithm
+  - Returns the node with minimum total duration
+  - Displays Shortest Node code and Total Duration in minutes
 
 ### Database Verification 
 

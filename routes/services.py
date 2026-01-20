@@ -80,14 +80,14 @@ def find_shortest_path_from_airport(root_airport):
 
         visited.add(current.id)
 
-        # Update shortest node (excluding root itself)
+        
         if current_distance > 0 and (
             min_node == root_airport or current_distance < min_duration
         ):
             min_node = current
             min_duration = current_distance
 
-        # ---------- FORWARD ----------
+        
         route = getattr(current, "airportroute", None)
         if route:
             for child in [route.left, route.right]:
@@ -99,7 +99,7 @@ def find_shortest_path_from_airport(root_airport):
                             heap, (new_distance, child.id, child)
                         )
 
-        # ---------- BACKWARD ----------
+        
         parent_routes = current.left_node.all() | current.right_node.all()
         for parent_route in parent_routes:
             parent = parent_route.airport
