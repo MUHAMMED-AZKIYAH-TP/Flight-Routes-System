@@ -1,38 +1,28 @@
 {% extends "base/base.html" %}
 {% block title %}Longest Route - Flight Routes System{% endblock %}
 {% block content %}
-<h2>⏱️ Longest Route</h2>
+<h2>⏱️ Find Longest Path From Airport</h2>
 
-{% if route %}
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">🔍 Find</button>
+</form>
+
+{% if node %}
     <div class="result-box">
-        <h3>📋 Longest Route Details</h3>
+        <h3>📋 Longest Path Details</h3>
         <div class="result-item">
-            <span class="result-label">Airport Code:</span>
-            <span class="result-value">{{ route.airport.code }}</span>
+            <span class="result-label">Longest Node:</span>
+            <span class="result-value">{{ node.code }}</span>
         </div>
         <div class="result-item">
-            <span class="result-label">Duration:</span>
-            <span class="result-value">{{ route.duration_min }} minutes</span>
+            <span class="result-label">Total Duration:</span>
+            <span class="result-value">{{ duration }} minutes</span>
         </div>
-        <div class="result-item">
-            <span class="result-label">Distance:</span>
-            <span class="result-value">{{ route.distance_km }} km</span>
-        </div>
-        {% if route.left %}
-        <div class="result-item">
-            <span class="result-label">Left Node:</span>
-            <span class="result-value">{{ route.left.code }}</span>
-        </div>
-        {% endif %}
-        {% if route.right %}
-        <div class="result-item">
-            <span class="result-label">Right Node:</span>
-            <span class="result-value">{{ route.right.code }}</span>
-        </div>
-        {% endif %}
     </div>
-{% else %}
-    <div class="no-data">🗂️ No route data available</div>
+{% elif request.method == "POST" %}
+    <div class="no-data">❌ No path found</div>
 {% endif %}
 {% endblock %}
 

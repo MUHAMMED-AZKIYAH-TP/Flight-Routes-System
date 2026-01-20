@@ -12,3 +12,7 @@ class NthNodeForm(forms.Form):
     root = forms.ModelChoiceField(queryset=Airport.objects.all())
     direction = forms.ChoiceField(choices=[("left", "Left"), ("right", "Right")])
     n = forms.IntegerField(min_value=1)
+    
+class LongestRouteForm(forms.Form):
+    airport = forms.ModelChoiceField(queryset=Airport.objects.all())
+

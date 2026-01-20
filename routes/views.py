@@ -1,7 +1,7 @@
 from django.shortcuts import render
-from .forms import AirportRouteForm, NthNodeForm
+from .forms import AirportRouteForm, NthNodeForm , LongestRouteForm 
 from .models import AirportRoute
-from .services import find_nth_node
+from .services import find_nth_node, find_longest_path
 
 
 def add_route(request):
@@ -26,10 +26,26 @@ def nth_node(request):
 
 
 def longest_route(request):
-    route = AirportRoute.objects.order_by("-duration_min").first()
-    return render(request, "routes/longest.html", {"route": route})
+    form = LongestRouteForm(request.POST or None)
+    node = None
+    duration = None
+
+    if form.is_valid():
+        airport = form.cleaned_data["airport"]
+        node, duration = find_longest_path(airport)
+
+    return render(
+        request,
+        "routes/longest.html",
+        {
+            "form": form,
+            "node": node,
+            "duration": duration,
+        }
+    )
 
 
 def shortest_route(request):
     route = AirportRoute.objects.order_by("duration_min").first()
     return render(request, "routes/shortest.html", {"route": route})
+
