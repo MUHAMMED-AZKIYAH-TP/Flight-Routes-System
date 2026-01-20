@@ -15,4 +15,9 @@ class NthNodeForm(forms.Form):
     
 class LongestRouteForm(forms.Form):
     airport = forms.ModelChoiceField(queryset=Airport.objects.all())
+    
+    
+class ShortestRouteForm(forms.Form):
+    airport = forms.ModelChoiceField(queryset=Airport.objects.all())
+
 

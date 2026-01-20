@@ -7,4 +7,6 @@ urlpatterns = [
     path("nth/", views.nth_node, name="nth-node"),
     path("longest/", views.longest_route, name="longest"),
     path("shortest/", views.shortest_route, name="shortest"),
+    
+    
 ]
